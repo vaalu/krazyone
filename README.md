@@ -22,3 +22,14 @@ Once the module is checked out / cloned from git / unzipped as raw application
 ```
 	mvn clean package
 ```
+## Before running the application
+Make sure to add aws credentials in the application properties. GitHub policy will not allow any credentials to be committed to repository
+```
+/krazyone/src/main/resources/application.properties
+
+aws.access.key=<<access key>>
+
+aws.secret.key=<<secret>>
+
+aws.region=<<region>>
+```
