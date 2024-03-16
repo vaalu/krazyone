@@ -28,6 +28,9 @@ public interface IUserController {
 	@PostMapping("/create")
 	public User addUser(@RequestBody User user);
 	
+	@PostMapping("/q/create")
+	public User addUserInQueue(@RequestBody User user);
+	
 	@RequestMapping("/find/by/name/first/{name}")
 	public List<User> fetchUserByFirstName(@PathVariable("name") String name);
 	

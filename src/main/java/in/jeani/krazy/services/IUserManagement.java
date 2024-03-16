@@ -12,6 +12,7 @@ import in.jeani.krazy.models.User;
  */
 public interface IUserManagement {
 	public User addUser(User user);
+	public User addUserInQueue(User user);
 	public List<User> fetchUsersByFirstName(String firstName);
 	public List<User> fetchUsersByLastName(String lastName);
 	public List<User> fetchUsersByAttrs(User user);

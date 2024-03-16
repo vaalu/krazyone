@@ -31,6 +31,11 @@ public class UserController extends BaseAPIController implements IUserController
 	}
 
 	@Override
+	public User addUserInQueue(User user) {
+		return userManagementService.addUserInQueue(user);
+	}
+	
+	@Override
 	public List<User> fetchAllUsers() {
 		return userManagementService.fetchAllUsers();
 	}

@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import in.jeani.krazy.aws.KrazySQSProcessor;
 import in.jeani.krazy.entities.UserEntity;
 import in.jeani.krazy.models.User;
 import in.jeani.krazy.repositories.UserManagementRepository;
@@ -23,9 +24,26 @@ public class UserManagementService implements IUserManagement {
 	@Autowired
 	UserManagementRepository userRepo;
 	
+	@Autowired
+	KrazySQSProcessor queueProcessor;
+	
 	@Override
 	public User addUser(User user) {
 		return new User(userRepo.saveAndFlush(new UserEntity(user)));
+	}
+	
+	@Override
+	public User addUserInQueue(User user) {
+		try {
+			queueProcessor.sendMessage(user);
+			List<User> newUsers = queueProcessor.receiveMessage();
+			for(User newUser : newUsers) {
+				addUser(newUser);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 	@Override
